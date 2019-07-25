@@ -19,13 +19,12 @@ def predict():
             df = pd.read_csv(f,index_col = "PassengerId")
         except:
             message = "No data provided"
-        if(message == ""):
-            try:
-                df["Survived"]=make_prediction(df)
-            except:
-                message = "Wrong format"
-            return jsonify({'success':True,"predictions":df["Survived"].to_json()})
-        return jsonify({'success':False,"message":message})
+        try:
+            df["Survived"]=make_prediction(df)
+        except:
+            message = "Wrong format"
+        return jsonify({'success':True,"predictions":df[["Survived","Name"]].to_json(orient='values')})
+    return jsonify({'success':False,"message":message})
 @prediction_app.route('/health', methods = ['GET'])
 def health():
     return "hello"
