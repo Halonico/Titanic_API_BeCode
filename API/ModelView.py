@@ -1,10 +1,13 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify,redirect,url_for
 #from model.prediction import make_prediction
 from model.run_pipeline import make_prediction,read_train
 import pandas as pd
 from database import DatabaseManager
-prediction_app=Blueprint('prediction_route',__name__)
-
+prediction_app=Blueprint('prediction_route',__name__,static_url_path='/static')
+@prediction_app.route('/index/')
+def root():
+    return prediction_app.send_static_file('index.html')
+    #return redirect(url_for('static', filename='index.html'))
 @prediction_app.route('/prediction',methods=['POST'])
 def predict():
     message = ""
@@ -19,13 +22,12 @@ def predict():
             df = pd.read_csv(f,index_col = "PassengerId")
         except:
             message = "No data provided"
-        if(message == ""):
-            try:
-                df["Survived"]=make_prediction(df)
-            except:
-                message = "Wrong format"
-            return jsonify({'success':True,"predictions":df["Survived"].to_json()})
-        return jsonify({'success':False,"message":message})
+        try:
+            df["Survived"]=make_prediction(df)
+        except:
+            message = "Wrong format"
+        return jsonify({'success':True,"predictions":df[["Survived","Name"]].to_json(orient='values')})
+    return jsonify({'success':False,"message":message})
 @prediction_app.route('/health', methods = ['GET'])
 def health():
     return "hello"
