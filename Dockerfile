@@ -10,6 +10,6 @@ RUN pip install -r requirements.txt
 COPY .  /titanic/
 
 EXPOSE $PORT
-
+EXPOSE $URI
 CMD [ "python", "run.py" ]
 
