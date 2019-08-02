@@ -47,7 +47,7 @@ This route make a model from the database, and save it to used in the prediction
 2) Go in the folder
 3) Run in cmd : ```docker build .```
 4) Run in cmd :  ```docker run  -p 5000:5000 -e URI="{postgresDatabaseURI}" -e PORT=5000  {imageId}```
-5) Run in cmd : ````python run.py```
+5) Run in cmd : ```python run.py```
 6) Make a post request to the passengers route with the train's csv inside a formdata under the key "file" to create a database
 7) Make a get request to the train route to generate a model
 8) You can now call the prediction route
