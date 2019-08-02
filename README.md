@@ -1,7 +1,8 @@
 # Titanic_API_BeCode
 
 ## Description
-This API is linked to this kaggle competition : https://www.kaggle.com/c/titanic
+This API is linked to this kaggle competition : https://www.kaggle.com/c/titanic .
+There is a front end available here : https://github.com/Halonico/Becode_Titanic_FrontEnd .
 ## Routes
 
 ### GET http://127.0.0.1:5000/state
